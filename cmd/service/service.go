@@ -114,6 +114,7 @@ func getServiceMiddleware(logger log.Logger) (mw []service.Middleware) {
 	mw = addDefaultServiceMiddleware(logger, mw)
 	// Append your middleware here
 
+
 	return
 }
 func getEndpointMiddleware(logger log.Logger) (mw map[string][]endpoint1.Middleware) {

@@ -32,6 +32,10 @@ type Region struct {
 }
 
 type UserService interface {
+	//Register an run for the first time a user registers to use the service
+	Register(ctx context.Context, username, email, password string) (err error)
+	//Login is to obtain access token
+	Login(ctx context.Context, username, password string) (token string, err error)
 	AddUser(ctx context.Context, user User) (err error)
 	GetUserById(ctx context.Context, uuid string) (user User, err error)
 	ListUsers(ctx context.Context, args map[string]interface{}) (users []User, err error)
@@ -58,28 +62,11 @@ type RegionService interface {
 // RegsvcService describes the service.
 type RegsvcService interface {
 
-	//Register an run for the first time a user registers to use the service
-	Register(ctx context.Context, username, email, password string) (err error)
-	//Login is to obtain access token
-	Login(ctx context.Context, username, password string) (token string, err error)
+	UserService
 
-	AddUser(ctx context.Context, user User) (err error)
-	GetUserById(ctx context.Context, uuid string) (user User, err error)
-	ListUsers(ctx context.Context, args map[string]interface{}) (users []User, err error)
-	DeleteUser(ctx context.Context, uuid string) (err error)
-	UpdateUser(ctx context.Context, uuid string, user User) (err error)
+	NodeService
 
-	AddNode(ctx context.Context, node Node) (err error)
-	GetNodeById(ctx context.Context, uuid string) (node Node, err error)
-	ListNodes(ctx context.Context, args map[string]interface{}) (nodes []Node, err error)
-	DeleteNode(ctx context.Context, uuid string) (err error)
-	UpdateNode(ctx context.Context, uuid string, node Node) (err error)
-
-	AddRegion(ctx context.Context, region Region) (err error)
-	GetRegionById(ctx context.Context, uuid string) (region Region, err error)
-	ListRegions(ctx context.Context, args map[string]interface{}) (regions []Region, err error)
-	DeleteRegion(ctx context.Context, uuid string) (err error)
-	UpdateRegion(ctx context.Context, uuid string, region Region) (err error)
+	RegionService
 }
 
 type basicRegsvcService struct{}
